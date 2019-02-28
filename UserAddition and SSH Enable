@@ -1,0 +1,4 @@
+su -i
+sudo ansible
+adduser <UserName>
+Sysmte will ask for password : enter password <password>
