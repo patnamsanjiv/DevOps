@@ -1,4 +1,49 @@
-su -i
-sudo ansible
+sudo -i
+su ansible
+cd ~  ---- move to /home/ansible
 adduser <UserName>
 Sysmte will ask for password : enter password <password>
+root@ip-172-31-27-18:~# vi /etc/ssh/sshd_config
+root@ip-172-31-27-18:~# service sshd restart
+root@ip-172-31-27-18:~# service sshd status
+
+Adding local host 
+-------------------------
+
+adding file <filename>
+localhost
+wq!
+
+Key Generation
+----------------
+ansible@ip-172-31-27-18:~$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ansible/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ansible/.ssh/id_rsa.
+Your public key has been saved in /home/ansible/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:sr3eV1a0jsVVQQowpISpt5YBBQf7L8NFqldjI75MsQQ ansible@ip-172-31-27-18
+The key's randomart image is:
++---[RSA 2048]----+
+|   o+oo..+..  .o+|
+|   .oo. . . . . o|
+|   Eo  o     ...o|
+|   .ooo        +.|
+|    .*=*S     +. |
+|    =+O+o    .o. |
+|   ..O...    o   |
+|    + +  o  .    |
+|     o .o ..     |
++----[SHA256]-----+
+ansible@ip-172-31-27-18:~$
+
+
+key path 
+/home/ansible/.ssh/id_rsa.pub
+
+
+copy public key into localmachine
+
+ssh-copy-id ansible@localhost (if locahost didn't work given private DNS from AWS page)
