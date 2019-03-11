@@ -58,5 +58,12 @@ Docker commands
 
 
 docker ps -a -q
+
 docker rm $(docker ps -a -q)
+
+docker pull <image name> <ubuntu:14.04>
+
+entering into the running container 
+docker exec -it 4fb7668e968a /bin/bash
+
 
