@@ -1,3 +1,6 @@
+adding the user ubuntu to docker user group
+	sudo usermod -aG docker ubuntu
+
 Update the apt package index:
 	sudo apt-get update
 
@@ -14,14 +17,18 @@ Add Docker’s official GPG key:
 
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
+$ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
 Update the apt package index.
 
 	$ sudo apt-get update
 
+Finally, install Docker:
+sudo apt-get install -y docker-ce
 
-Install the latest version of Docker CE and containerd, or go to the next step to install a specific version:
+Docker should now be installed, the daemon started, and the process enabled to start on boot. Check that it's running:
 
-	$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo systemctl status docker
 
 
 Verify that Docker CE is installed correctly by running the hello-world image.
@@ -57,13 +64,62 @@ Docker commands
 
 
 
-docker ps -a -q
+docker ps -a -q / docker ps -aq
 
-docker rm $(docker ps -a -q)
+Remove one or more dockers at a time 
+	docker rm $(docker ps -a -q)
 
 docker pull <image name> <ubuntu:14.04>
 
 entering into the running container 
-docker exec -it 4fb7668e968a /bin/bash
+	docker exec -it 4fb7668e968a /bin/bash
 
 
+docker rm -f $(docker ps -a -q)
+  417  docker run -d -v /var/tmp/contdata:/usr/local/tomcat --name c1 gol:1.1
+  418  docker ps -a
+  419  docker exec -it c1 /bin/bash
+  420  docker run -it -v /var/tmp/contdata:/usr/local/tomcat --name c3 gol:1.1 /bin/bash
+  421  cd /var/tmp/contdata/
+  422  ls -ltr
+  423  touch test2.txt
+  424  ls -ltr
+  425  docker exec -it c1 /bin/bash
+  426  docker exec -it c3 /bin/bash
+  427  docker run -it -v /var/tmp/contdata:/usr/local/tomcat --name c4 gol:1.1 /bin/bash
+  428  ls -ltr
+  429  docker exec -it c3 /bin/bash
+  430  docker ps -a
+  431  docker rm c1
+  432  docker ps -a
+  433  docker run -it -v /var/tmp/contdata:/usr/local/tomcat --name c1 gol:1.1 /bin/bash
+  434  docker network ls
+  
+  ==========================================================================
+  
+  Creating the own network bridge
+  	docker network create -d bridge --subnet 10.10.11.0/25 GolBridge
+  
+  Creating the two containers on the bridge
+  
+  Creating container GolCont1 on the network GolBridge
+  	docker run -it --name GolCont1 --network GolBridge ubuntu:16.04 /bin/bash
+  
+  creating Container GolCont2 on the network GolBridge
+  	docker run -it --name GolCont2 --network GolBridge ubuntu:16.04 /bin/bash
+  as soon as creating container we need to update it 
+  	apt-get update
+  intall ping utility in the container
+  	apt-get install iputils-ping
+  entering into container 
+  	docker exec -it GolCont1 /bin/bash
+  list of availabale networks
+  	docker network ls
+  checking the bridge of the network
+  	docker network <bridge name> inspect
+	docker network GolBridge inspect
+ 
+  
+  
+  
+  
